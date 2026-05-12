@@ -1,7 +1,9 @@
+import streamlit as st
 from flask import Flask, jsonify
 import random
 import math
 from datetime import datetime, timedelta
+
 
 app = Flask(__name__)
 
@@ -2523,13 +2525,19 @@ update();
 </body>
 </html>"""
 
-@app.route('/')
+@app.route("/")
 def home():
-    return HTML
+    return Response(HTML, mimetype="text/html")
 
-@app.route('/data')
-def data():
+
+@app.route("/api/data")
+def api_data():
     return jsonify(generate_data())
 
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(
+        host="0.0.0.0",
+        port=8501,
+        debug=False
+    )
